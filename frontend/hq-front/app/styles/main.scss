@@ -1,0 +1,53 @@
+@import '~@owczar/dashboard-style--airframe/scss/style';
+@import './components/big-calendar';
+/*@import "~@fullcalendar/core/main.css";
+@import "~@fullcalendar/daygrid/main.css";*/
+.form-control {
+  font-family : 'SF Pro Display','Apple SD Gothic Neo','맑은 고딕','Malgun Gothic','돋움',dotum,sans-serif !important;
+}
+
+.form-control {
+  background-color: #ffffff !important;
+}
+
+.custom-select-style {
+  font-size: 16px;       /* 텍스트 크기 */
+  color: #000000;        /* 글자 색상 (검정색) */
+  background-color: #ffffff;  /* 배경 색상 (흰색) */
+  width: 250px;          /* 너비 */
+}
+
+/*.layout__content {
+  background-color: #212529;
+}*/
+
+//datepicker 길이 짤리는문제
+.mantine-Paper-root {
+  overflow: visible;
+}
+
+.react-datepicker-popper{
+  z-index: 4 !important;
+}
+.layout__wrap {
+  width: calc(100% - 240px);
+}
+
+.mantine-Modal-content {
+  overflow: auto;
+}
+
+.card {
+  overflow: auto;
+}
+
+.form-control[disabled] {
+  border-color: #dee2e6;
+  cursor: not-allowed;
+  background-color: rgba(31, 45, 61, 0.03) !important;
+}
+
+.form-control[readonly] {
+  border-color: #dee2e6;
+  background-color: rgba(31, 45, 61, 0.03) !important;
+}

@@ -1,0 +1,65 @@
+= HQ Server
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectnums:
+:sectlinks:
+:sectanchors:
+
+== Notice
+- ``/api/v1/traditional-oauth/token`` has the same function as ``/oauth2/token``, which is included in Spring Security, which can be more regarded as secure.
+
+== Authentication
+
+
+=== Access Token
+==== Request
+===== Payload
+include::{snippets}/user-integration-test/test_같은_앱토큰_끼리는_같은_액세스_토큰을_사용_exposed/oauth-access-token/http-request.adoc[]
+====== Header
+include::{snippets}/user-integration-test/test_같은_앱토큰_끼리는_같은_액세스_토큰을_사용_exposed/oauth-access-token/request-headers.adoc[]
+====== Parameters
+include::{snippets}/user-integration-test/test_같은_앱토큰_끼리는_같은_액세스_토큰을_사용_exposed/oauth-access-token/form-parameters.adoc[]
+====== Body
+'application/x-www-form-urlencoded'
+
+==== Response
+include::{snippets}/user-integration-test/test_같은_앱토큰_끼리는_같은_액세스_토큰을_사용_exposed/oauth-access-token/response-body.adoc[]
+
+
+=== Refresh Token
+
+==== Request
+===== Payload
+include::{snippets}/user-integration-test/test_같은_앱토큰_끼리는_같은_액세스_토큰을_사용_exposed/oauth-refresh-token/http-request.adoc[]
+====== Header
+include::{snippets}/user-integration-test/test_같은_앱토큰_끼리는_같은_액세스_토큰을_사용_exposed/oauth-refresh-token/request-headers.adoc[]
+====== Parameters
+include::{snippets}/user-integration-test/test_같은_앱토큰_끼리는_같은_액세스_토큰을_사용_exposed/oauth-refresh-token/form-parameters.adoc[]
+====== Body
+'application/x-www-form-urlencoded'
+
+==== Response
+include::{snippets}/user-integration-test/test_같은_앱토큰_끼리는_같은_액세스_토큰을_사용_exposed/oauth-refresh-token/response-body.adoc[]
+
+
+=== Logout
+
+==== Request
+===== Payload
+include::{snippets}/user-integration-test/test_같은_앱토큰_끼리는_같은_액세스_토큰을_사용_exposed/oauth-user-logout/http-request.adoc[]
+====== Header
+include::{snippets}/user-integration-test/test_같은_앱토큰_끼리는_같은_액세스_토큰을_사용_exposed/oauth-user-logout/request-headers.adoc[]
+====== Parameters
+
+X
+
+====== Body
+
+X
+
+==== Response
+include::{snippets}/user-integration-test/test_같은_앱토큰_끼리는_같은_액세스_토큰을_사용_exposed/oauth-user-logout/response-body.adoc[]
+include::{snippets}/user-integration-test/test_같은_앱토큰_끼리는_같은_액세스_토큰을_사용_exposed/oauth-user-logout/response-fields.adoc[]

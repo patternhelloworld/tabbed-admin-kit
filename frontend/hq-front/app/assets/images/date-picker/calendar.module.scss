@@ -1,0 +1,107 @@
+.datePicker {
+  display: flex;
+  align-items: center;
+  border: 1px solid grey;
+  border-radius: 4px;
+  background-color: white;
+  box-sizing: border-box;
+  width: 100%;
+  height: 30px;
+  color: #3F4651;
+  text-align: center;
+  padding-right: 14px;
+
+  &:focus {
+    border: 2px solid orange;
+  }
+}
+
+.customHeaderContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  height: 100%;
+  margin-top: 8px;
+  padding: 0 12px 0 24px;
+
+  .month {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .year {
+    background-color: black;
+    color: #ffffff;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding-right: 5px;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', serif;
+  }
+
+  .monthButton {
+    width: 34px;
+    height: 34px;
+    padding: 5px;
+    border-radius: 50%;
+
+    + .monthButton {
+      margin-left: 24px;
+    }
+
+    &:hover {
+      background-color: rgba(#ffffff, 0.08);
+    }
+
+    &:disabled {
+      cursor: default;
+      background-color: black;
+
+      svg {
+        fill: #575757;
+      }
+    }
+  }
+
+  .lArrow {
+    margin-right : 5rem !important;
+    margin-top : 1.3rem !important;
+  }
+
+  .rArrow {
+    margin-right : 1rem !important;
+    margin-top : 1.3rem !important;
+  }
+}
+
+.calenderWrapper {
+  background-color: black;
+  color: #ffffff;
+}
+
+.selectedDay,
+.unselectedDay {
+  color: #ffffff;
+  padding: 3px 1px 0 0;
+  width: 36px;
+  height: 36px;
+}
+
+.selectedDay {
+  background-color: orange;
+  border-radius: 50%;
+
+  &:hover {
+    border-radius: 50%;
+    background-color: #c27101;
+  }
+}
+
+.unselectedDay {
+  &:hover {
+    border-radius: 50%;
+    background-color: rgba(#ffffff, 0.08);
+  }
+}

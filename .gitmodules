@@ -1,0 +1,6 @@
+[submodule "backend/pms-common"]
+	path = backend/pms-common
+	url = ssh://git@vholic.com:12201/autofocus/pms-common.git
+[submodule "backend/pms-security-oauth2"]
+	path = backend/pms-security-oauth2
+	url = ssh://git@vholic.com:12201/autofocus/pms-security-oauth2.git

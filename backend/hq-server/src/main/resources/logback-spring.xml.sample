@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds" debug="true">
+
+<!--    * ConsoleAppender: 콘솔에 로그를 기록하는 방법
+
+    * FileAppender: 파일에 로그를 기록하는 방법
+
+    * RollingFileAppender: 여러 개의 파일을 순회하며 로그를 기록하는 방법
+
+    * SMTPAppender: 로그를 메일로 기록하는 방법
+
+    * DBAppender: 데이터베이스에 로그를 기록하는 방법   -->
+
+
+    <property name="LOGS_ABSOLUTE_PATH" value="logs"/>
+
+    <appender name="RestTemplate" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_ABSOLUTE_PATH}/rest-template/current.log</file>
+        <encoder
+                class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+            <Pattern>%d %p %C{1} [%t] %m%n</Pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_ABSOLUTE_PATH}/rest-template/%d{yyyy-MM}/past-%d{yyyy-MM-dd_HH}.%i.log</fileNamePattern>
+            <maxHistory>50</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+
+    <!-- appender-> 출력 위치, CONSOLE 표기 패턴-->
+    <appender name="Console"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %yellow(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %magenta(%C{1}): %msg%n%throwable
+            </Pattern>
+        </layout>
+    </appender>
+
+    <appender name="SuccessResponse"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_ABSOLUTE_PATH}/success-response/current.log</file>
+        <encoder
+                class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+            <Pattern>%d %p %C{1} [%t] %m%n</Pattern>
+        </encoder>
+
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_ABSOLUTE_PATH}/success-response/%d{yyyy-MM}/past-%d{yyyy-MM-dd_HH}.%i.log
+            </fileNamePattern>
+            <maxHistory>50</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="ErrorResponse"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_ABSOLUTE_PATH}/error-response/current.log</file>
+        <encoder
+                class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+            <Pattern>%d %p %C{1} [%t] %m%n</Pattern>
+        </encoder>
+
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 분당 로그 파일을 만들고, 10MB 단위로 운영 -->
+            <!-- %d -> dateTime, %i -> index 둘은 필수 -->
+            <fileNamePattern>${LOGS_ABSOLUTE_PATH}/error-response/%d{yyyy-MM}/past-%d{yyyy-MM-dd_HH}.%i.log
+            </fileNamePattern>
+            <maxHistory>50</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="SecurityError"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_ABSOLUTE_PATH}/security-error/current.log</file>
+        <encoder
+                class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+            <Pattern>%d %p %C{1} [%t] %m%n</Pattern>
+        </encoder>
+
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 분당 로그 파일을 만들고, 10MB 단위로 운영 -->
+            <!-- %d -> dateTime, %i -> index 둘은 필수 -->
+            <fileNamePattern>${LOGS_ABSOLUTE_PATH}/security-error/%d{yyyy-MM}/past-%d{yyyy-MM-dd_HH}.%i.log
+            </fileNamePattern>
+            <maxHistory>50</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+
+    <appender name="SQL"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_ABSOLUTE_PATH}/sql/current.log</file>
+        <encoder
+                class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d %p %C{1} [%t] %m%n</Pattern>
+        </encoder>
+
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 분당 로그 파일을 만들고, 10MB 단위로 운영 -->
+            <!-- %d -> dateTime, %i -> index 둘은 필수 -->
+            <fileNamePattern>${LOGS_ABSOLUTE_PATH}/sql/%d{yyyy-MM}/past-%d{yyyy-MM-dd_HH}.%i.log
+            </fileNamePattern>
+            <maxHistory>5</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="ExcelAsyncUploadError"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_ABSOLUTE_PATH}/excel-async-upload-error/current.log</file>
+        <encoder
+                class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+            <Pattern>%d %p %C{1} [%t] %m%n</Pattern>
+        </encoder>
+
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_ABSOLUTE_PATH}/excel-async-upload-error/%d{yyyy-MM}/past-%d{yyyy-MM-dd_HH}.%i.log
+            </fileNamePattern>
+            <maxHistory>50</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="NonStopError"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_ABSOLUTE_PATH}/non-stop/current.log</file>
+        <encoder
+                class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+            <Pattern>%d %p %C{1} [%t] %m%n</Pattern>
+        </encoder>
+
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_ABSOLUTE_PATH}/non-stop-error/%d{yyyy-MM}/past-%d{yyyy-MM-dd_HH}.%i.log
+            </fileNamePattern>
+            <maxHistory>50</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+
+
+    <logger name="com.autofocus.pms.hq.config.logger.module.ResponseSuccessLogConfig" level="TRACE" additivity="false">
+        <appender-ref ref="SuccessResponse" />
+        <!--<appender-ref ref="Console" />-->
+    </logger>
+    <logger name="com.autofocus.pms.hq.config.logger.module.ResponseErrorLogConfig" level="TRACE" additivity="false">
+        <appender-ref ref="ErrorResponse" />
+        <!--<appender-ref ref="Console" />-->
+    </logger>
+
+    <logger name="com.autofocus.pms.hq.config.logger.module.NonStopErrorLogConfig" level="TRACE" additivity="false">
+        <appender-ref ref="NonStopError" />
+        <!--<appender-ref ref="Console" />-->
+    </logger>
+
+    <logger name="com.autofocus.pms.hq.config.logger.module.RestTemplateClientLogConfig" level="TRACE" additivity="false">
+        <appender-ref ref="RestTemplate" />
+        <!--<appender-ref ref="Console" />-->
+    </logger>
+
+    <logger name="org.springframework.security" level="WARN" additivity="false">
+        <appender-ref ref="SecurityError" />
+        <!--<appender-ref ref="Console" />-->
+    </logger>
+
+    <logger name="com.autofocus.pms.hq.mapper.UserMapper" level="trace" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+
+
+<!--    <logger name="jdbc.sqlonly" level="INFO" appender-ref="Console" />
+    <logger name="jdbc.resultsettable" level="INFO" appender-ref="Console" />-->
+
+    <logger name="com.autofocus.pms.common.config.response.error.PmsCommonGlobalExceptionHandler"
+            level="error" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="com.autofocus.pms.security.oauth2.config.security.response.common.error.SecurityGlobalExceptionHandler"
+            level="error" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+
+    <root level="info" >
+        <appender-ref ref="Console"/>
+    </root>
+
+
+</configuration>
+
+

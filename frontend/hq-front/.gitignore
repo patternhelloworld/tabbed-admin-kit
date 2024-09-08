@@ -1,0 +1,21 @@
+# dependencies
+**/node_modules
+
+# misc
+**/.DS_Store
+
+# environment config
+**/.env
+
+# Intellij
+**/.idea
+**/*.iws
+**/*.iml
+**/*.ipr
+
+# vscode
+**/.vscode
+
+# production
+**/dist
+**/npm-debug.log*

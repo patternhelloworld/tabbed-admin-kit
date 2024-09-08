@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+
+    <groupId>com.autofocus.pms</groupId>
+    <artifactId>hq-pms</artifactId>
+    <version>FINAL</version>
+
+    <!-- pom 패키징은 jar, war와 같은 다른 패키지/모듈을 포함하는 컨테이너임을 의미합니다. -->
+    <!-- ./mvnw install과 같은 작업을 외부 패키지/컨테이너에서 수행하는 경우. 내부 패키지/모듈도 해당 스크립트가 실행이 됩니다. -->
+    <packaging>pom</packaging>
+
+    <properties>
+        <java.version>17</java.version>
+        <!-- 빌드스크립트 에러나서 추가해놓음:: $ ./mvnw install && ./mvnw spring-boot:run -pl my-app -->
+        <!-- maven compiler plugin이 사용하는 JDK 버전 통일 용도 -->
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+		<resource.delimiter>@</resource.delimiter>
+		<maven.compiler.release>${java.version}</maven.compiler.release>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <modules>
+        <module>pms-common</module>
+		<module>pms-security-oauth2</module>
+		<module>hq-server</module>
+    </modules>
+
+</project>

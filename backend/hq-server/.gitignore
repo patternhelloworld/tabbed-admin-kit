@@ -1,0 +1,53 @@
+/.docker/ssl/*
+!/.docker/ssl/.gitkeep
+
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+#/src/main/resources/*.properties
+#/src/main/resources/logback-spring.xml
+/src/main/java/META-INF
+!/src/main/java/META-INF/.gitkeep
+
+# docker
+/.docker/env/*
+!/.docker/env/.gitkeep
+/.docker/ssh/*
+!/.docker/ssh/.gitkeep
+
+### STS ###
+/.apt_generated
+/.classpath
+/.factorypath
+/.project
+/.settings
+/.springBeans
+/.sts4-cache
+
+### IntelliJ IDEA ###
+/.idea
+/*.iws
+/*.iml
+/*.ipr
+
+hb-auth-log
+/logs/
+/apis/
+/hb-auth-log*
+/.mysql/developers/
+
+# logs
+/logs/*
+!/logs/.gitkeep
+
+# .properties
+/src/main/resources/application.properties
+/src/main/resources/application.alpha.properties
+/src/main/resources/application.production.properties
+# logback
+/src/main/resources/logback-spring.xml
+
+# Mac
+/.DS_Store
+
+/files/*
+!/files/.gitkeep

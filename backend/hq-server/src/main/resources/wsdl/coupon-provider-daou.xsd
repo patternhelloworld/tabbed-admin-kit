@@ -1,0 +1,82 @@
+<!--
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+  &lt;!&ndash; 1. 쿠폰 발행 &ndash;&gt;
+  <xs:element name="CouponIssueReqToDaou">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="COOPER_ID"/>
+        <xs:element type="xs:string" name="COOPER_PW"/>
+        <xs:element type="xs:string" name="SITE_ID"/>
+        <xs:element type="xs:string" name="NO_REQ"/>
+        <xs:element type="xs:string" name="COOPER_ORDER"/>
+        <xs:element type="xs:string" name="ISSUE_COUNT"/>
+        <xs:element type="xs:string" name="CALL_CTN"/>
+        <xs:element type="xs:string" name="RCV_CTN"/>
+        <xs:element type="xs:string" name="VALID_START"/>
+        <xs:element type="xs:string" name="VALID_END"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="CouponIssueResFromDaou">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="ACTION"/>
+        <xs:element type="xs:string" name="ENGINE_ID"/>
+        <xs:element type="xs:string" name="RT"/>
+        <xs:element type="xs:string" name="RTMSG"/>
+        <xs:element type="xs:string" name="COOPER_ORDER"/>
+        <xs:element type="xs:string" name="PAY_ID"/>
+        <xs:element type="xs:string" name="BOOKING_NO"/>
+        <xs:element type="xs:string" name="ISSUE_COUNT"/>
+        <xs:element type="couponList" name="CPN_LIST"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="couponList">
+    <xs:sequence>
+      <xs:element name="CPN" type="coupon" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="coupon">
+    <xs:sequence>
+      <xs:element type="xs:string" name="NO_CPN"/>
+      <xs:element type="xs:string" name="NO_AUTH"/>
+      <xs:element type="xs:string" name="CPN_PW"/>
+      <xs:element type="xs:string" name="TS_ID"/>
+      <xs:element type="xs:string" name="GOODS_VALID_START"/>
+      <xs:element type="xs:string" name="GOODS_VALID_END"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  &lt;!&ndash; 2. 쿠폰 취소 &ndash;&gt;
+  <xs:element name="CouponRevokeReqToDaou">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="COOPER_ID"/>
+        <xs:element type="xs:string" name="COOPER_PW"/>
+        <xs:element type="xs:string" name="SITE_ID"/>
+        <xs:element type="xs:string" name="COOPER_ORDER"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="CouponRevokeResFromDaou">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="ACTION"/>
+        <xs:element type="xs:string" name="ENGINE_ID"/>
+        <xs:element type="xs:string" name="RT"/>
+        <xs:element type="xs:string" name="RTMSG"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+</xs:schema>
+-->

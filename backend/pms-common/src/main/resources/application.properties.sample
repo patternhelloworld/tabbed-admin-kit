@@ -1,0 +1,3 @@
+# 아래 둘 중에 하나를 DB에 따라 application.properties 에 지정
+# spring.jpa.properties.hibernate.dialect=com.autofocus.pms.merz.belotero.config.database.dialect.CustomSQLServerDialect
+# spring.jpa.properties.hibernate.dialect=com.autofocus.pms.hq.config.database.dialect.CustomMySQL8Dialect

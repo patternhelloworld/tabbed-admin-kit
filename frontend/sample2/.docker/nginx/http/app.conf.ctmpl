@@ -1,0 +1,35 @@
+server {
+    listen 8360;
+    server_name localhost; # 도메인 이름을 변경해주세요
+
+    # Root directory
+    root /app; # 실제 경로로 변경해주세요
+    index index.html
+    # Access and Error logs
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+
+    # Gzip compression for performance improvement
+    gzip on;
+    gzip_comp_level 5;
+    gzip_min_length 256;
+    gzip_proxied any;
+    gzip_vary on;
+
+    gzip_types
+        application/javascript
+        application/json
+        application/xml
+        text/css
+        text/plain;
+
+    # Cache settings for static files for better performance
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+        expires 30d;
+        add_header Cache-Control "public, no-transform";
+    }
+
+    location / {
+      try_files $uri $uri/ /index.html?$query_string;
+    }
+}

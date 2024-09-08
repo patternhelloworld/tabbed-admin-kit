@@ -1,0 +1,17 @@
+/*  table util
+============================================================*/
+.tb_util {padding:0 0 5px; text-align:right; border-radius:5px 5px 0 0; width: 100%;}
+.tb_util > * {display:inline-block; vertical-align:middle; margin:0 1px; width:auto;}
+.search_container {position:relative; width:170px;}
+.search_container input {padding-right:40px;}
+.search_container button {position:absolute; top:1px; right:1px; display:block; border:0; width:39px; height:28px; border-radius:0 5px 5px 0; font-size:0; text-indent:-999999px; background:url(./btn_search.gif) no-repeat 0 -1px; cursor:pointer;}
+
+/* 캘린터
+=====================================================================================*/
+.ui-datepicker-trigger {display:block; width:23px; height:19px;}
+.calendar_item {position:relative; display:inline-block; width:110px;}
+.calendar_item input[type="text"] {padding:0 26px 0 8px; cursor:auto; background:url(./ico_calendar.gif) no-repeat 103% -1px;}
+.calendar_item img {position:absolute; right:1px; top:1px; border-radius:3px;}
+.ui-datepicker {padding:.5rem; border-radius:5px; border:2px solid #606060; background-color:#fff;}
+.ui-datepicker .ui-datepicker-header {border-radius:3px; background-color:#ebebeb;}
+.tb_util .ui-datepicker-trigger {display:block; width:23px; height:21px;}
