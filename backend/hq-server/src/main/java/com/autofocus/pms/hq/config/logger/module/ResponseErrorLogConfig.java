@@ -4,6 +4,7 @@ import com.autofocus.pms.common.config.logger.common.CommonLoggingRequest;
 import com.autofocus.pms.common.config.response.error.PmsCommonGlobalExceptionHandler;
 import com.autofocus.pms.common.config.response.error.dto.ErrorResponsePayload;
 
+import com.autofocus.pms.hq.config.response.error.CustomSecurityGlobalExceptionHandler;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -23,7 +24,7 @@ public class ResponseErrorLogConfig {
     private static final Logger logger = LoggerFactory.getLogger(ResponseErrorLogConfig.class);
 
 
-    @AfterReturning(pointcut = ("within(com.autofocus.pms.common.config.response.error..*)"),
+    @AfterReturning(pointcut = ("within(com.autofocus.pms.common.config.response.error..*) || within(com.autofocus.pms.security.oauth2.config.response.common.error..*) || within(com.autofocus.pms.hq.config.response.error..*)"),
             returning = "returnValue")
     public void endpointAfterExceptionReturning(JoinPoint p, Object returnValue) {
 
@@ -31,7 +32,7 @@ public class ResponseErrorLogConfig {
 
         // 4. Error logging
         try {
-            if (p.getTarget().getClass().equals(PmsCommonGlobalExceptionHandler.class)) {
+            if (p.getTarget().getClass().equals(PmsCommonGlobalExceptionHandler.class) || p.getTarget().getClass().equals(CustomSecurityGlobalExceptionHandler.class)) {
 
                 ErrorResponsePayload errorResponsePayload = (ErrorResponsePayload) ((ResponseEntity) returnValue).getBody();
                 loggedText += String.format("[After - Error Response]\n message : %s || \n userMessage : %s || \n cause : %s || \n stackTrace : %s",
