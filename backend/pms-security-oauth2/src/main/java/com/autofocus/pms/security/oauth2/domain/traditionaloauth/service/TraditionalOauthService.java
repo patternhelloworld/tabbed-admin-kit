@@ -102,7 +102,7 @@ public class TraditionalOauthService {
         } catch (CustomOauth2AuthenticationException e) {
             throw e;
         } catch (Exception e) {
-            throw new CustomOauth2AuthenticationException(e.getMessage() + "///" + e.getStackTrace().toString());
+            throw e;
         }
     }
 
