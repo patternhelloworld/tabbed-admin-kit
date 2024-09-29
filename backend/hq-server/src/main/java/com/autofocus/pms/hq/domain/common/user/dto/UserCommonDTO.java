@@ -179,6 +179,7 @@ public class UserCommonDTO {
      * */
     @Getter
     @Setter
+    @NoArgsConstructor
     public static class OneWithDeptDealerMenus {
 
         private Long userIdx;
