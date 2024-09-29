@@ -16,7 +16,7 @@ export const globalInfoState = atom({
         authenticatedRoutes: {
             fixed: [
                 {title: '게시판 베이스', path: '/issues', exact: true, recoilKey: 'Issues'},
-                {title: '대시보드 메인', path: '/dashboards/projects', exact: true, recoilKey: 'ProjectsDashboard'},
+                {title: 'Dashboard Main', path: '/dashboards/projects', exact: true, recoilKey: 'ProjectsDashboard'},
             ],
             dynamic: [
             ],
