@@ -21,9 +21,6 @@ public class UserMenuAuthService {
         return userMenuAuthRepositorySupport.findListByUserIdxAndSyncEmptyPermissions(userIdx);
     }
 
-    public List<UserMenuAuthCommonDTO.OneWithSubMenu> findList() {
-        return userMenuAuthRepositorySupport.findList();
-    }
 
     @Transactional(value = "crmTransactionManager", rollbackFor=Exception.class)
     public List<UserMenuAuthCommonDTO.OneWithSubMenu> updateUserMenuAuths(UserMenuAuthCommonDTO.PermissionSet permissionSet, @AuthenticationPrincipal AccessTokenUserInfo accessTokenUserInfo) throws JsonProcessingException {

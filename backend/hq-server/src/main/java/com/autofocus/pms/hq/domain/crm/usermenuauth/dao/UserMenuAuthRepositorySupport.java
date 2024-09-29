@@ -9,6 +9,7 @@ import com.autofocus.pms.hq.domain.crm.submenu.entity.QSubMenu;
 
 
 import com.autofocus.pms.hq.domain.crm.usermenuauth.dto.QUserMenuAuthCommonDTO_OneWithSubMenu;
+import com.autofocus.pms.hq.domain.crm.usermenuauth.dto.QUserMenuAuthCommonDTO_Permission;
 import com.autofocus.pms.hq.domain.crm.usermenuauth.dto.UserMenuAuthCommonDTO;
 import com.autofocus.pms.hq.domain.crm.usermenuauth.entity.QUserMenuAuth;
 import com.autofocus.pms.hq.domain.crm.usermenuauth.entity.UserMenuAuth;
@@ -103,41 +104,29 @@ public class UserMenuAuthRepositorySupport extends CrmQuerydslRepositorySupport 
 
     }
 
-    public List<UserMenuAuthCommonDTO.OneWithSubMenu> findList() {
+    public List<UserMenuAuthCommonDTO.Permission> findList(Long userIdx) {
 
         QUserMenuAuth qUserMenuAuth = QUserMenuAuth.userMenuAuth;
         QSubMenu qSubMenu = QSubMenu.subMenu;
         QMainMenu qMainMenu = QMainMenu.mainMenu;
 
-        JPAQuery<UserMenuAuthCommonDTO.OneWithSubMenu> query = jpaQueryFactory
-                .select(new QUserMenuAuthCommonDTO_OneWithSubMenu(
-                        qUserMenuAuth.userMenuAuthIdx,
+        JPAQuery<UserMenuAuthCommonDTO.Permission> query = jpaQueryFactory
+                .select(new QUserMenuAuthCommonDTO_Permission(
                         qUserMenuAuth.ynLst,
                         qUserMenuAuth.ynInt,
                         qUserMenuAuth.ynMod,
                         qUserMenuAuth.ynDel,
                         qUserMenuAuth.ynXls,
-                        qSubMenu.subMenuIdx,
                         qSubMenu.subMenuNm,
-                        qMainMenu.mainMenuIdx,
+                        qSubMenu.subMenuPath,
+                        qSubMenu.subMenuKey,
                         qMainMenu.mainMenuNm,
-                        qUserMenuAuth.userIdx,
-                        qUserMenuAuth.userId,
-                        qUserMenuAuth.reason,
-                        qUserMenuAuth.dealerCd,
-                        qUserMenuAuth.regUserId,
-                        qUserMenuAuth.regDt,
-                        qUserMenuAuth.regIp,
-                        qUserMenuAuth.modUserId,
-                        qUserMenuAuth.modDt,
-                        qUserMenuAuth.modIp,
-                        qUserMenuAuth.delUserId,
-                        qUserMenuAuth.delDt,
-                        qUserMenuAuth.delIp,
-                        qUserMenuAuth.delYn))
+                        qMainMenu.mainMenuPath,
+                        qMainMenu.mainMenuKey))
                 .from(qUserMenuAuth)
                 .leftJoin(qUserMenuAuth.subMenu, qSubMenu)
                 .leftJoin(qSubMenu.mainMenu, qMainMenu)
+                .where(qUserMenuAuth.userIdx.eq(userIdx))
                 .where(qUserMenuAuth.delDt.isNull());
 
         // 상기 saveAll 한 것을 반영한 결과를 가져온다.

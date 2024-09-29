@@ -10,6 +10,7 @@ import com.autofocus.pms.hq.domain.common.user.utils.PasswordUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
 
@@ -186,6 +187,11 @@ public class UserCommonDTO {
         private String userId;
 
         private String password;
+        @JsonProperty("password")
+        public String getPasswordForJson() {
+            return "";
+        }
+
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
         private LocalDateTime passwordChangedAt;
         private Integer passwordFailedCount;

@@ -9,6 +9,7 @@ import com.autofocus.pms.hq.domain.common.user.dto.UserCommonDTO;
 import com.autofocus.pms.hq.domain.common.user.entity.Password;
 import com.autofocus.pms.hq.domain.common.user.entity.User;
 
+import com.autofocus.pms.hq.domain.crm.usermenuauth.dao.UserMenuAuthRepositorySupport;
 import com.autofocus.pms.hq.mapper.UserMapper;
 import com.autofocus.pms.security.oauth2.config.security.dao.OauthClientDetailRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -28,14 +29,16 @@ public class UserDetailsServiceImpl extends CommonQuerydslRepositorySupport impl
     private final JPAQueryFactory jpaQueryFactory;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final UserMenuAuthRepositorySupport userMenuAuthRepositorySupport;
 
     public UserDetailsServiceImpl(UserRepository userRepository,
                                   UserMapper userMapper,
-                                  @Qualifier("commonJpaQueryFactory") JPAQueryFactory jpaQueryFactory, OauthClientDetailRepository oauthClientDetailRepository) {
+                                  @Qualifier("commonJpaQueryFactory") JPAQueryFactory jpaQueryFactory, OauthClientDetailRepository oauthClientDetailRepository, UserMenuAuthRepositorySupport userMenuAuthRepositorySupport) {
         super(User.class);
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.jpaQueryFactory = jpaQueryFactory;
+        this.userMenuAuthRepositorySupport = userMenuAuthRepositorySupport;
     }
 
     @Override
@@ -47,6 +50,9 @@ public class UserDetailsServiceImpl extends CommonQuerydslRepositorySupport impl
         }
         if(userInfo.getDelDt() != null){
             throw new UsernameNotFoundException(userInfo.getUserId() + " 님의 계정은 현재 " + userInfo.getDelDt() + " 시점부터 비활성화 되어 있습니다.");
+        }
+        if(userInfo.getPermissions() == null || userInfo.getPermissions().isEmpty()){
+            userInfo.setPermissions(userMenuAuthRepositorySupport.findList(userInfo.getUserIdx()).stream().map(x -> new UserCommonDTO.OneWithDeptDealerMenus.Permission(x.getYnLst(), x.getYnInt(), x.getYnMod(), x.getYnDel(), x.getYnXls(), x.getSubMenuNm(), x.getSubMenuPath(), x.getSubMenuKey(), x.getMainMenuNm(), x.getMainMenuPath(), x.getMainMenuKey())).toList());
         }
 
         Password password = Password.builder().value(userInfo.getPassword()).changedDate(userInfo.getPasswordChangedAt()).failedCount(userInfo.getPasswordFailedCount()).build();

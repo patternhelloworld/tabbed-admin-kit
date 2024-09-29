@@ -22,7 +22,40 @@ public class UserMenuAuthCommonDTO {
         private List<OneWithSubMenu> permissions;
     }
 
-    @RequiredArgsConstructor
+
+    @Getter
+    @Setter
+    @Builder
+    public static class Permission {
+        private YNCode ynLst;
+        private YNCode ynInt;
+        private YNCode ynMod;
+        private YNCode ynDel;
+        private YNCode ynXls;
+        private String subMenuNm;
+        private String subMenuPath;
+        private String subMenuKey;
+        private String mainMenuNm;
+        private String mainMenuPath;
+        private String mainMenuKey;
+
+        @QueryProjection
+        public Permission(YNCode ynLst, YNCode ynInt, YNCode ynMod, YNCode ynDel, YNCode ynXls, String subMenuNm, String subMenuPath, String subMenuKey, String mainMenuNm, String mainMenuPath, String mainMenuKey) {
+            this.ynLst = ynLst;
+            this.ynInt = ynInt;
+            this.ynMod = ynMod;
+            this.ynDel = ynDel;
+            this.ynXls = ynXls;
+            this.subMenuNm = subMenuNm;
+            this.subMenuPath = subMenuPath;
+            this.subMenuKey = subMenuKey;
+            this.mainMenuNm = mainMenuNm;
+            this.mainMenuPath = mainMenuPath;
+            this.mainMenuKey = mainMenuKey;
+        }
+    }
+
+
     @Getter
     @Setter
     @Builder
