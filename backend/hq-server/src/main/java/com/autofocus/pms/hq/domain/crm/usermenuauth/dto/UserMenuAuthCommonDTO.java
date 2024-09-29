@@ -55,7 +55,7 @@ public class UserMenuAuthCommonDTO {
         }
     }
 
-
+    @RequiredArgsConstructor
     @Getter
     @Setter
     @Builder
