@@ -45,8 +45,8 @@
                             'subMenuPath', sm.sub_menu_path,
                             'subMenuKey', sm.sub_menu_key,
                             'mainMenuNm', mm.main_menu_nm,
-                            'mainMenuKey', mm.main_menu_key,
-                            'mainMenuPath', mm.main_menu_path
+                            'mainMenuPath', mm.main_menu_path,
+                            'mainMenuKey', mm.main_menu_key
                         )
                 ) AS permissions,
 

@@ -6,12 +6,12 @@ const FooterText = (props) => (
 		(C) { props.year } All Rights Reserved.
 		Created by{' '}
 		<a
-			href="http://auto-focus.co.kr/"
+			href="https://github.com/patternknife"
 			target="_blank"
 			rel="noopener noreferrer"
 			className="sidebar__link"
 		>
-			AUTOFOCUS
+			Andrew Kang
 		</a>
 	</React.Fragment>
 )
