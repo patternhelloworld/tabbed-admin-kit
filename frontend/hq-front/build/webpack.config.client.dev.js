@@ -143,6 +143,6 @@ module.exports = {
       index: BASE_PATH,
     },
     host: "0.0.0.0",
-    port: 8600
+    port: 8360
   }
 };

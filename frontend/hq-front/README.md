@@ -14,23 +14,6 @@ npm install --legacy-peer-deps # --legacy-peer-deps 는 권장되지 않으나 �
 npm run start
 ```
 
-## 모듈 개발
-
-### main_menu 테이블과  sub_menu 테이블에 path 와 key 를 세팅
-- main_menu
-
-![img_1.png](reference/img_1.png)
- 
-- sub_menu
-
-![img.png](reference/img.png)
-
-- [중요] RecoilKey 는 각각 CodesExtColors, CodesIntColors 가 된다.
-
-### 권한 설정
-
-![img.png](reference/img3.png)
-
 ### 다음을 따라서 소스 코드 수정
 - https://vholic.com:9094/autofocus/hq-pms/-/commit/34c8567adbf5692e89e3750a5a153024ec89bef7
 

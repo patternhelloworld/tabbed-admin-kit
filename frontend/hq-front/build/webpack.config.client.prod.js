@@ -170,6 +170,6 @@ module.exports = {
             index: '/'
         },
         host: '0.0.0.0',
-        port: 8600
+        port: 8360
     }
 }

@@ -176,9 +176,7 @@ const SettingsMenusMainsUpdate = ({
                                            readOnly={globalReadOnly}
                                     />
                                     <FormFeedback className={'ml-3'}>{formik.errors.mainMenuNm}</FormFeedback>
-                                    {/*                        <FormText color="muted">
-                            계정 공유에 대한 책임은 본인에게 있습니다.
-                        </FormText>*/}
+
                                 </FormGroup>
                             </Col>
                             <Col lg={6}>

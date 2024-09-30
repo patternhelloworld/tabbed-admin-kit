@@ -27,7 +27,7 @@ const DropdownProfile = (props) => (
         agent.Auth.logout();
       }}>
         <i className="fa fa-fw fa-sign-out mr-2"></i>
-        로그 아웃
+        Logout
       </DropdownItem>
     </DropdownMenu>
   </React.Fragment>

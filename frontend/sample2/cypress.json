@@ -1,8 +1,0 @@
-{
-  "baseUrl": "http://localhost:8360",
-  "viewportHeight": 800,
-  "viewportWidth": 1440,
-  "env": {
-    "apiBaseUrl": "http://localhost:8370"
-  }
-}

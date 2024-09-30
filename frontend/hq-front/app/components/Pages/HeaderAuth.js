@@ -33,7 +33,7 @@ HeaderAuth.propTypes = {
 };
 HeaderAuth.defaultProps = {
     title: "Loading...",
-    text: "인증된 사용자만 데이터 확인이 가능합니다.",
+    text: "Only authenticated users can view the data.",
     iconClassName: "text-theme"
 };
 

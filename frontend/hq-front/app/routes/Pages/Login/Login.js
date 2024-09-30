@@ -129,7 +129,7 @@ const Login = () => {
             <EmptyLayout.Section center>
                 { /* START Header */}
                 <HeaderAuth
-                    title="로그인을 진행하십시오."
+                    title="Proceed with the login"
                 />
                 { /* END Header */}
                 { /* START Form */}
@@ -148,13 +148,11 @@ const Login = () => {
                                 required
                         />
                         <FormFeedback className={'ml-3'}>{formik.errors.userId}</FormFeedback>
-                        <FormText color="muted">
-                            계정 공유에 대한 책임은 본인에게 있습니다.
-                        </FormText>
+
                     </FormGroup>
                     <FormGroup>
                         <Label for="password">
-                            비밀번호
+                            Password
                         </Label>
                         <Input id="password" name="password" type="password" placeholder="Password"
                                 valid={!formik.errors.password && formik.touched.password}

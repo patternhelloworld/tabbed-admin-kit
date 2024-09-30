@@ -1,8 +1,0 @@
-node_modules/
-build/
-logs/
-docker-compose.yml
-Dockerfile
-.gitignore
-*.md
-.git
