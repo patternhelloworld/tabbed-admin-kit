@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.patternhelloworld.tak.mapper.UserMapper">
+
+    <select id="findOneWithDeptDealerMenus"
+            parameterType="String"
+            resultType="io.github.patternhelloworld.tak.domain.common.user.dto.UserCommonDTO$OneWithDeptDealerMenus">
+        SELECT
+            u.user_idx AS userIdx,
+            u.user_id AS userId,
+            u.password AS password,
+            u.password_changed_at AS passwordChangedAt,
+            u.password_failed_count AS passwordFailedCount,
+            u.name AS name,
+            u.position AS position,
+            u.joining_date AS joiningDate,
+            u.birth_date AS birthDate,
+            u.resignation_date AS resignationDate,
+            u.phone_number AS phoneNumber,
+
+            u.zipcode AS zipcode,
+            u.addr1 AS addr1,
+            u.addr2 AS addr2,
+
+            u.management_department AS managementDepartment,
+            u.view_permission AS viewPermission,
+
+            u.dms_worker_yn AS dmsWorkerYn,
+
+            d.dept_nm AS deptNm,
+            d.dept_idx AS deptIdx,
+
+            dl.dealer_nm AS dealerNm,
+            dl.dealer_cd AS dealerCd,
+
+
+            JSON_ARRAYAGG(
+                    JSON_OBJECT(
+                            'ynLst', uma.yn_lst,
+                            'ynInt', uma.yn_int,
+                            'ynMod', uma.yn_mod,
+                            'ynDel', uma.yn_del,
+                            'ynXls', uma.yn_xls,
+                            'subMenuNm', sm.sub_menu_nm,
+                            'subMenuPath', sm.sub_menu_path,
+                            'subMenuKey', sm.sub_menu_key,
+                            'mainMenuNm', mm.main_menu_nm,
+                            'mainMenuPath', mm.main_menu_path,
+                            'mainMenuKey', mm.main_menu_key
+                        )
+                ) AS permissions,
+
+            u.reg_dt AS regDt,
+            u.reg_user_id AS regUserId,
+            u.mod_dt AS modDt,
+            u.mod_user_id AS modUserId,
+            u.del_dt AS delDt,
+            u.del_user_id AS delUserId
+        FROM
+            kit_common.user u
+                # Many to One from user
+                LEFT JOIN kit_common.dept d ON u.dept_idx = d.dept_idx
+                # Many to One from user
+                LEFT JOIN kit_common.dealer dl ON d.dealer_cd = dl.dealer_cd
+                # One to Many from user
+                LEFT JOIN kit_crm.user_menu_auth uma ON u.user_idx = uma.user_idx
+                # Many to One from user_menu_auth
+                LEFT JOIN kit_crm.sub_menu sm ON uma.sub_menu_idx = sm.sub_menu_idx
+                # Many to One from sub_menu, user_menu_auth
+                LEFT JOIN kit_crm.main_menu mm ON sm.main_menu_idx = mm.main_menu_idx
+        WHERE
+            u.user_id = #{username}
+        GROUP BY
+            u.user_idx,
+            u.user_id,
+            u.name,
+            u.position,
+            u.joining_date,
+            u.birth_date,
+            u.resignation_date,
+            u.phone_number,
+
+            u.zipcode,
+            u.addr1,
+            u.addr2,
+
+            u.management_department,
+            u.view_permission,
+
+            u.dms_worker_yn,
+
+            d.dept_nm,
+            d.dept_idx,
+
+            dl.dealer_nm,
+            dl.dealer_cd,
+
+            u.reg_dt,
+            u.reg_user_id,
+            u.mod_dt,
+            u.mod_user_id,
+            u.del_dt,
+            u.del_user_id
+    </select>
+
+
+
+    <select id="findWithDeptDealerByPageFilter"
+            parameterType="io.github.patternhelloworld.tak.domain.common.user.dto.CombinedUserFilters"
+            resultType="io.github.patternhelloworld.tak.domain.common.user.dto.UserCommonDTO$OneWithDeptDealer">
+        SELECT
+        u.user_idx AS userIdx,
+        u.user_id AS userId,
+
+        u.password AS password,
+        u.password_changed_at AS passwordChangedAt,
+        u.password_failed_count AS passwordFailedCount,
+
+        u.name AS name,
+        u.position AS position,
+        u.joining_date AS joiningDate,
+        u.birth_date AS birthDate,
+        u.resignation_date AS resignationDate,
+
+        u.phone_number AS phoneNumber,
+
+        u.zipcode AS zipcode,
+        u.addr1 AS addr1,
+        u.addr2 AS addr2,
+
+        u.management_department AS managementDepartment,
+        u.view_permission AS viewPermission,
+
+        u.dms_worker_yn AS dmsWorkerYn,
+
+        d.dept_nm AS deptNm,
+        d.dept_idx AS deptIdx,
+
+        dl.dealer_nm AS dealerNm,
+        dl.dealer_cd AS dealerCd,
+
+        u.reg_dt AS regDt,
+        u.reg_user_id AS regUserId,
+        u.mod_dt AS modDt,
+        u.mod_user_id AS modUserId,
+        u.del_dt AS delDt,
+        u.del_user_id AS delUserId,
+        u.del_yn AS delYn,
+
+        u.out_dt AS outDt,
+        u.out_yn AS outYn
+
+        FROM
+            kit_common.user u
+                LEFT JOIN kit_common.dept d ON u.dept_idx = d.dept_idx
+                LEFT JOIN kit_common.dealer dl ON d.dealer_cd = dl.dealer_cd
+
+        WHERE
+        u.del_yn &lt;&gt; "Y"
+        <if test="filter.userSearchFilter != null and filter.userSearchFilter.userId != null">
+            AND u.user_id LIKE CONCAT('%', #{filter.userSearchFilter.userId}, '%')
+        </if>
+        <if test="filter.userSearchFilter != null and filter.userSearchFilter.name != null">
+            AND u.name LIKE CONCAT('%', #{filter.userSearchFilter.name}, '%')
+        </if>
+        <if test="filter.userSearchFilter != null and filter.userSearchFilter.dealerNm != null">
+            AND dl.dealer_nm LIKE CONCAT('%', #{filter.userSearchFilter.dealerNm}, '%')
+        </if>
+        <if test="filter.userSearchFilter != null and filter.userSearchFilter.dealerCd != null">
+            AND dl.dealer_cd = #{filter.userSearchFilter.dealerCd}
+        </if>
+        <if test="filter.userSearchFilter != null and filter.userSearchFilter.deptNm != null">
+            AND d.dept_nm LIKE CONCAT('%', #{filter.userSearchFilter.deptNm}, '%')
+        </if>
+        <if test="filter.userSearchFilter != null and filter.userSearchFilter.position != null">
+            AND u.position = #{filter.userSearchFilter.position}
+        </if>
+        <if test="filter.userSearchFilter != null and filter.userSearchFilter.globalField != null">
+            AND (u.user_id LIKE CONCAT('%', #{filter.userSearchFilter.globalField}, '%')
+            OR u.name LIKE CONCAT('%', #{filter.userSearchFilter.globalField}, '%')
+            OR dl.dealer_nm LIKE CONCAT('%', #{filter.userSearchFilter.globalField}, '%')
+            OR d.dept_nm LIKE CONCAT('%', #{filter.userSearchFilter.globalField}, '%'))
+        </if>
+        <choose>
+            <when test="filter.dateRangeFilter != null and filter.dateRangeFilter.column == 'regDt'">
+                <if test="filter.dateRangeFilter.startDate != null">
+                    AND u.reg_dt &gt;= #{filter.dateRangeFilter.startDate}
+                </if>
+                <if test="filter.dateRangeFilter.endDate != null">
+                    AND u.reg_dt &lt;= #{filter.dateRangeFilter.endDate}
+                </if>
+            </when>
+            <when test="filter.dateRangeFilter != null and filter.dateRangeFilter.column == 'modDt'">
+                <if test="filter.dateRangeFilter.startDate != null">
+                    AND u.mod_dt &gt;= #{filter.dateRangeFilter.startDate}
+                </if>
+                <if test="filter.dateRangeFilter.endDate != null">
+                    AND u.mod_dt &lt;= #{filter.dateRangeFilter.endDate}
+                </if>
+            </when>
+            <when test="filter.dateRangeFilter != null and filter.dateRangeFilter.column == 'delDt'">
+                <if test="filter.dateRangeFilter.startDate != null">
+                    AND u.del_dt &gt;= #{filter.dateRangeFilter.startDate}
+                </if>
+                <if test="filter.dateRangeFilter.endDate != null">
+                    AND u.del_dt &lt;= #{filter.dateRangeFilter.endDate}
+                </if>
+            </when>
+            <otherwise>
+                <!-- 기타 필터 없는 경우 처리 -->
+            </otherwise>
+        </choose>
+
+        <choose>
+            <when test="filter.sorterValueFilter == null">
+                ORDER BY u.user_idx DESC
+            </when>
+            <when test="filter.sorterValueFilter !=null and filter.sorterValueFilter.column == 'userIdx'">
+                ORDER BY u.user_idx
+                <if test="filter.sorterValueFilter.asc">
+                    ASC
+                </if>
+                <if test="!filter.sorterValueFilter.asc">
+                    DESC
+                </if>
+            </when>
+            <when test="filter.sorterValueFilter.column == 'userId'">
+                ORDER BY u.user_id
+                <if test="filter.sorterValueFilter.asc">
+                    ASC
+                </if>
+                <if test="!filter.sorterValueFilter.asc">
+                    DESC
+                </if>
+            </when>
+            <when test="filter.sorterValueFilter.column == 'name'">
+                ORDER BY u.name
+                <if test="filter.sorterValueFilter.asc">
+                    ASC
+                </if>
+                <if test="!filter.sorterValueFilter.asc">
+                    DESC
+                </if>
+            </when>
+            <when test="filter.sorterValueFilter.column == 'deptNm'">
+                ORDER BY d.dept_nm
+                <if test="filter.sorterValueFilter.asc">
+                    ASC
+                </if>
+                <if test="!filter.sorterValueFilter.asc">
+                    DESC
+                </if>
+            </when>
+            <when test="filter.sorterValueFilter.column == 'position'">
+                ORDER BY u.position
+                <if test="filter.sorterValueFilter.asc">
+                    ASC
+                </if>
+                <if test="!filter.sorterValueFilter.asc">
+                    DESC
+                </if>
+            </when>
+            <when test="filter.sorterValueFilter.column == 'dealerNm'">
+                ORDER BY dl.dealer_nm
+                <if test="filter.sorterValueFilter.asc">
+                    ASC
+                </if>
+                <if test="!filter.sorterValueFilter.asc">
+                    DESC
+                </if>
+            </when>
+            <when test="filter.sorterValueFilter.column == 'regDt'">
+                ORDER BY u.reg_dt
+                <if test="filter.sorterValueFilter.asc">
+                    ASC
+                </if>
+                <if test="!filter.sorterValueFilter.asc">
+                    DESC
+                </if>
+            </when>
+            <when test="filter.sorterValueFilter.column == 'modDt'">
+                ORDER BY u.mod_dt
+                <if test="filter.sorterValueFilter.asc">
+                    ASC
+                </if>
+                <if test="!filter.sorterValueFilter.asc">
+                    DESC
+                </if>
+            </when>
+            <otherwise>
+                ORDER BY u.user_idx DESC <!-- 기본 정렬 -->
+            </otherwise>
+        </choose>
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="countWithDeptDealerByPageFilter" parameterType="io.github.patternhelloworld.tak.domain.common.user.dto.CombinedUserFilters"
+            resultType="long">
+       SELECT COUNT(u.user_idx)
+        FROM
+        kit_common.user u
+        LEFT JOIN kit_common.dept d ON u.dept_idx = d.dept_idx
+        LEFT JOIN kit_common.dealer dl ON d.dealer_cd = dl.dealer_cd
+
+        WHERE
+        u.del_yn &lt;&gt; "Y"
+        <if test="filter.userSearchFilter != null and filter.userSearchFilter.userId != null">
+            AND u.user_id LIKE CONCAT('%', #{filter.userSearchFilter.userId}, '%')
+        </if>
+        <if test="filter.userSearchFilter != null and filter.userSearchFilter.name != null">
+            AND u.name LIKE CONCAT('%', #{filter.userSearchFilter.name}, '%')
+        </if>
+        <if test="filter.userSearchFilter != null and filter.userSearchFilter.dealerNm != null">
+            AND dl.dealer_nm LIKE CONCAT('%', #{filter.userSearchFilter.dealerNm}, '%')
+        </if>
+        <if test="filter.userSearchFilter != null and filter.userSearchFilter.dealerCd != null">
+            AND dl.dealer_cd = #{filter.userSearchFilter.dealerCd}
+        </if>
+        <if test="filter.userSearchFilter != null and filter.userSearchFilter.deptNm != null">
+            AND d.dept_nm LIKE CONCAT('%', #{filter.userSearchFilter.deptNm}, '%')
+        </if>
+        <if test="filter.userSearchFilter != null and filter.userSearchFilter.position != null">
+            AND u.position = #{filter.userSearchFilter.position}
+        </if>
+        <if test="filter.userSearchFilter != null and filter.userSearchFilter.globalField != null">
+            AND (u.user_id LIKE CONCAT('%', #{filter.userSearchFilter.globalField}, '%')
+                     OR u.name LIKE CONCAT('%', #{filter.userSearchFilter.globalField}, '%')
+                     OR dl.dealer_nm LIKE CONCAT('%', #{filter.userSearchFilter.globalField}, '%')
+                     OR d.dept_nm LIKE CONCAT('%', #{filter.userSearchFilter.globalField}, '%'))
+        </if>
+        <choose>
+            <when test="filter.dateRangeFilter != null and filter.dateRangeFilter.column == 'regDt'">
+                <if test="filter.dateRangeFilter.startDate != null">
+                    AND u.reg_dt &gt;= #{filter.dateRangeFilter.startDate}
+                </if>
+                <if test="filter.dateRangeFilter.endDate != null">
+                    AND u.reg_dt &lt;= #{filter.dateRangeFilter.endDate}
+                </if>
+            </when>
+            <when test="filter.dateRangeFilter != null and filter.dateRangeFilter.column == 'modDt'">
+                <if test="filter.dateRangeFilter.startDate != null">
+                    AND u.mod_dt &gt;= #{filter.dateRangeFilter.startDate}
+                </if>
+                <if test="filter.dateRangeFilter.endDate != null">
+                    AND u.mod_dt &lt;= #{filter.dateRangeFilter.endDate}
+                </if>
+            </when>
+            <when test="filter.dateRangeFilter != null and filter.dateRangeFilter.column == 'delDt'">
+                <if test="filter.dateRangeFilter.startDate != null">
+                    AND u.del_dt &gt;= #{filter.dateRangeFilter.startDate}
+                </if>
+                <if test="filter.dateRangeFilter.endDate != null">
+                    AND u.del_dt &lt;= #{filter.dateRangeFilter.endDate}
+                </if>
+            </when>
+            <otherwise>
+                <!-- 기타 필터 없는 경우 처리 -->
+            </otherwise>
+        </choose>
+
+    </select>
+</mapper>

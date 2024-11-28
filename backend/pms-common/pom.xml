@@ -18,7 +18,7 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<groupId>com.autofocus.pms.common</groupId>
+	<groupId>io.github.patternhelloworld.common</groupId>
 	<artifactId>pms-common</artifactId>
 	<version>FINAL</version>
 	<name>pms-common</name>

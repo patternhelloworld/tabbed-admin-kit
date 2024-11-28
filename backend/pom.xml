@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
 
-    <groupId>com.autofocus.pms</groupId>
-    <artifactId>hq-pms</artifactId>
+    <groupId>io.github.patternhelloworld</groupId>
+    <artifactId>tabbed-admin-kit</artifactId>
     <version>FINAL</version>
 
     <!-- pom 패키징은 jar, war와 같은 다른 패키지/모듈을 포함하는 컨테이너임을 의미합니다. -->
@@ -26,8 +26,7 @@
 
     <modules>
         <module>pms-common</module>
-		<module>pms-security-oauth2</module>
-		<module>hq-server</module>
+		<module>tak-server</module>
     </modules>
 
 </project>

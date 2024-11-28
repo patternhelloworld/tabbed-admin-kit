@@ -45,12 +45,12 @@
 - 클라이언트의 처리 방법 : 결론적으로 Http Status 관계없이, userMessage 파라매터의 값이 있으면, 이를 안내 창으로 띄우고, 없을 경우 userValidationMessage 의 key, value 값에서 value 값을 해당 key value 에 해당하는 창에 표시하거나, 안내 창으로 띄운다.
 
 ## Installation
-- 사용하고자 하는 모듈의 진입점에서 이 모듈의 Bean 들을 읽을 수 있게 다음과 같이 등록해준다. ("com.autofocus.pms.common")
-- 예시는 com.autofocus.pms.hq 모듈에서 이 모듈을 가져다 쓰는 것으로 하였다.
+- 사용하고자 하는 모듈의 진입점에서 이 모듈의 Bean 들을 읽을 수 있게 다음과 같이 등록해준다. ("io.github.patternhelloworld.common")
+- 예시는 io.github.patternhelloworld.tak 모듈에서 이 모듈을 가져다 쓰는 것으로 하였다.
 
 ```java
 @EnableScheduling
-@SpringBootApplication(scanBasePackages =  {"com.autofocus.pms.common", "com.autofocus.pms.hq"})
+@SpringBootApplication(scanBasePackages =  {"io.github.patternhelloworld.common", "io.github.patternhelloworld.tak"})
 public class HqApplication {
 
     @PostConstruct
@@ -66,5 +66,5 @@ public class HqApplication {
 ```
 - hq-server 모듈의 ``application.properties``에 필요한 설정 파일들을 추가한다.
 ```properties
-spring.jpa.properties.hibernate.dialect=com.autofocus.pms.hq.config.database.dialect.CustomMySQL8Dialect
+spring.jpa.properties.hibernate.dialect=dialect.database.config.io.github.patternhelloworld.tak.CustomMySQL8Dialect
 ```
