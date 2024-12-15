@@ -1,15 +1,15 @@
-# [A] 기본 설정
-spring.profiles.active=local
+# [A] ?? ??
+spring.profiles.active=production
 server.port=8370
+
 
 # [B] DB - ??
 
-
-spring.datasource.hikari.hq.common.url=
+spring.datasource.hikari.hq.common.url=jdbc:mysql://localhost:13506/kit_common?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
 spring.datasource.hikari.hq.common.username=
 spring.datasource.hikari.hq.common.password=
 
-spring.datasource.hikari.hq.crm.url=
+spring.datasource.hikari.hq.crm.url=jdbc:mysql://localhost:13506/kit_crm?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
 spring.datasource.hikari.hq.crm.username=
 spring.datasource.hikari.hq.crm.password=
 
@@ -17,7 +17,7 @@ spring.datasource.hikari.hq.crm.password=
 
 spring.datasource.hikari.hq.common.auto-commit=false
 spring.datasource.hikari.hq.common.connection-test-query=SELECT 1
-spring.datasource.hikari.hq.commonq.minimum-idle=10
+spring.datasource.hikari.hq.common.minimum-idle=10
 spring.datasource.hikari.hq.common.maximum-pool-size=20
 spring.datasource.hikari.hq.common.transaction-isolation=default
 
@@ -27,23 +27,26 @@ spring.datasource.hikari.hq.crm.minimum-idle=10
 spring.datasource.hikari.hq.crm.maximum-pool-size=20
 spring.datasource.hikari.hq.crm.transaction-isolation=default
 
+
+
+
 # [D] DB - JPA
-# DDL(create, alter, drop) 허용 : 위험하므로 특별한 상황 아니면 금지.
+# DDL(create, alter, drop) ?? : ????? ??? ?? ??? ??.
 spring.jpa.hibernate.ddl-auto=none
-# 이 옵션을 false 로 설정하면, 엔티티 관리 컨텍스트를 더 세밀하게 제어할 수 있으며, 이를 통해 성능과 Lazy Loading 관련 이슈
+# ? ??? false ? ????, ??? ?? ????? ? ???? ??? ? ???, ?? ?? ??? Lazy Loading ?? ??
 spring.jpa.open-in-view=false
 spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
-# mysql 사용
+# mysql ??
 #spring.datasource.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
 spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
 #spring.jpa.database=sql_server
 spring.jpa.database=mysql
-#spring.jpa.properties.hibernate.dialect=dialect.database.config.io.github.patternhelloworld.tak.CustomSQLServerDialect
-spring.jpa.properties.hibernate.dialect=dialect.database.config.io.github.patternhelloworld.tak.CustomMySQL8Dialect
+#spring.jpa.properties.hibernate.dialect=com.autofocus.pms.hq.config.database.dialect.CustomSQLServerDialect
+spring.jpa.properties.hibernate.dialect=io.github.patternhelloworld.tak.config.database.dialect.CustomMySQL8Dialect
 
 
-# [E] 로깅 - JPA 의 SQL 출력
+# [E] ?? - JPA ? SQL ??
 
 # basic log level for all messages
 logging.level.org.hibernate=info
@@ -59,9 +62,9 @@ logging.level.org.hibernate.cache=debug
 spring.jpa.properties.hibernate.format_sql=true
 
 
-# [F] 로깅 - 일반 설정
+# [F] ?? - ?? ??
 # Log
-logging.file.name=logs/app.log
+logging.file.name=.files/logs/app.log
 
 
 # [G] Spring Security
@@ -85,9 +88,10 @@ app.test.oauth2.user.clientSecret=5b22fcb8b72ceebd611e61126c0b2030
 
 
 
-# [J] 파일
 
-file.upload.location=logs
+# [J] ??
+
+file.upload.location=files
 
 file.upload-dir.root=files
 file.upload-dir.root.public=files/public

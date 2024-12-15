@@ -3,10 +3,10 @@ package io.github.patternhelloworld.tak.config.securityimpl.service;
 import io.github.patternhelloworld.tak.config.securityimpl.message.CustomSecurityUserExceptionMessage;
 import io.github.patternhelloworld.tak.config.securityimpl.principal.AccessTokenUserInfo;
 import io.github.patternhelloworld.tak.domain.common.user.entity.Password;
-
+import io.github.patternknife.securityhelper.oauth2.api.config.security.response.error.dto.KnifeErrorMessages;
+import io.github.patternknife.securityhelper.oauth2.api.config.security.message.DefaultSecurityUserExceptionMessage;
 import io.github.patternknife.securityhelper.oauth2.api.config.security.message.ISecurityUserExceptionMessageService;
 
-import io.github.patternknife.securityhelper.oauth2.api.config.security.response.error.dto.KnifeErrorMessages;
 import io.github.patternknife.securityhelper.oauth2.api.config.security.response.error.exception.KnifeOauth2AuthenticationException;
 import io.github.patternknife.securityhelper.oauth2.api.config.security.serivce.IOauth2AuthenticationHashCheckService;
 import jakarta.annotation.Nullable;
@@ -27,7 +27,7 @@ public class CustomOauth2AuthenticationHashCheckService implements IOauth2Authen
 
     public void validateUsernamePassword(String inputPassword, @Nullable UserDetails userDetails){
         if (userDetails == null) {
-            throw new io.github.patternknife.securityhelper.oauth2.api.config.security.response.error.exception.KnifeOauth2AuthenticationException(iSecurityUserExceptionMessageService.getUserMessage(CustomSecurityUserExceptionMessage.AUTHENTICATION_ID_NO_EXISTS));
+            throw new KnifeOauth2AuthenticationException(iSecurityUserExceptionMessageService.getUserMessage(DefaultSecurityUserExceptionMessage.AUTHENTICATION_ID_NO_EXISTS));
         }
 
         if (!passwordEncoder.matches(inputPassword, userDetails.getPassword())) {
@@ -39,17 +39,17 @@ public class CustomOauth2AuthenticationHashCheckService implements IOauth2Authen
             }
             throw new KnifeOauth2AuthenticationException(KnifeErrorMessages.builder()
                     .userDetails(userDetails)
-                    .userMessage(iSecurityUserExceptionMessageService.getUserMessage(CustomSecurityUserExceptionMessage.AUTHENTICATION_LOGIN_FAILURE)).message(CustomSecurityUserExceptionMessage.AUTHENTICATION_WRONG_ID_PASSWORD.getMessage() + " (inputPassword : " + inputPassword + ", input username : " + userDetails.getUsername() + ")").build());
+                    .userMessage(iSecurityUserExceptionMessageService.getUserMessage(DefaultSecurityUserExceptionMessage.AUTHENTICATION_LOGIN_FAILURE)).message(CustomSecurityUserExceptionMessage.AUTHENTICATION_WRONG_ID_PASSWORD.getMessage() + " (inputPassword : " + inputPassword + ", input username : " + userDetails.getUsername() + ")").build());
         }
     }
 
     public void validateClientCredentials(String inputClientSecret, RegisteredClient registeredClient){
         if (registeredClient == null) {
-            throw new KnifeOauth2AuthenticationException(iSecurityUserExceptionMessageService.getUserMessage(CustomSecurityUserExceptionMessage.AUTHENTICATION_WRONG_CLIENT_ID_SECRET));
+            throw new KnifeOauth2AuthenticationException(iSecurityUserExceptionMessageService.getUserMessage(DefaultSecurityUserExceptionMessage.AUTHENTICATION_WRONG_CLIENT_ID_SECRET));
         }
         if (!passwordEncoder.matches(inputClientSecret, registeredClient.getClientSecret())) {
             throw new KnifeOauth2AuthenticationException(KnifeErrorMessages.builder()
-                    .userMessage(iSecurityUserExceptionMessageService.getUserMessage(CustomSecurityUserExceptionMessage.AUTHENTICATION_LOGIN_FAILURE)).message(iSecurityUserExceptionMessageService.getUserMessage(CustomSecurityUserExceptionMessage.AUTHENTICATION_WRONG_CLIENT_ID_SECRET) + " (inputClientSecret : " + inputClientSecret+ ")").build());
+                    .userMessage(iSecurityUserExceptionMessageService.getUserMessage(DefaultSecurityUserExceptionMessage.AUTHENTICATION_LOGIN_FAILURE)).message(iSecurityUserExceptionMessageService.getUserMessage(DefaultSecurityUserExceptionMessage.AUTHENTICATION_WRONG_CLIENT_ID_SECRET) + " (inputClientSecret : " + inputClientSecret+ ")").build());
         }
     }
 

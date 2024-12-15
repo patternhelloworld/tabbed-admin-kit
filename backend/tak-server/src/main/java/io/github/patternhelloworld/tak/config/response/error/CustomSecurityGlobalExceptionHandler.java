@@ -6,6 +6,7 @@ import io.github.patternhelloworld.tak.config.securityimpl.message.CustomSecurit
 import io.github.patternhelloworld.tak.domain.common.user.dao.UserRepository;
 import io.github.patternhelloworld.tak.domain.common.user.entity.User;
 
+import io.github.patternknife.securityhelper.oauth2.api.config.security.message.DefaultSecurityUserExceptionMessage;
 import io.github.patternknife.securityhelper.oauth2.api.config.security.message.ISecurityUserExceptionMessageService;
 
 
@@ -58,7 +59,7 @@ public class CustomSecurityGlobalExceptionHandler {
                             ex, request.getDescription(false), CustomExceptionUtils.getAllStackTraces(ex),
                             CustomExceptionUtils.getAllCauses(ex), null);
                 }else{
-                    errorResponsePayload = new SecurityKnifeErrorResponsePayload(CustomExceptionUtils.getAllCauses(ex), request.getDescription(false), iSecurityUserExceptionMessageService.getUserMessage(CustomSecurityUserExceptionMessage.AUTHENTICATION_LOGIN_FAILURE),
+                    errorResponsePayload = new SecurityKnifeErrorResponsePayload(CustomExceptionUtils.getAllCauses(ex), request.getDescription(false), iSecurityUserExceptionMessageService.getUserMessage(DefaultSecurityUserExceptionMessage.AUTHENTICATION_LOGIN_FAILURE),
                             ex.getMessage() +  " !!! 사용자 (" + username + ") 미발견. 로직상 문제 없는 지, 시스템 관리자 로그 확인 필요.", ex.getStackTrace()[0].toString());
                 }
             }else{
@@ -73,7 +74,7 @@ public class CustomSecurityGlobalExceptionHandler {
 
 
         }else {
-            errorResponsePayload = new SecurityKnifeErrorResponsePayload(CustomExceptionUtils.getAllCauses(ex), request.getDescription(false), iSecurityUserExceptionMessageService.getUserMessage(CustomSecurityUserExceptionMessage.AUTHENTICATION_LOGIN_FAILURE),
+            errorResponsePayload = new SecurityKnifeErrorResponsePayload(CustomExceptionUtils.getAllCauses(ex), request.getDescription(false), iSecurityUserExceptionMessageService.getUserMessage(DefaultSecurityUserExceptionMessage.AUTHENTICATION_LOGIN_FAILURE),
                     ex.getMessage(), ex.getStackTrace()[0].toString());
         }
         return new ResponseEntity<>(errorResponsePayload, HttpStatus.UNAUTHORIZED);

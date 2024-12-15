@@ -123,7 +123,7 @@ public class UserService {
 
         User user = userRepositorySupport.findById(userIdx);
 
-        List<KnifeAuthorization> knifeAuthorizations = knifeAuthorizationRepository.findListByPrincipalNameAndRegisteredClientId(user.getUserId(), registeredClient.getClientId()).orElse(new ArrayList<>());
+        List<KnifeAuthorization> knifeAuthorizations = knifeAuthorizationRepository.findListByPrincipalNameAndRegisteredClientIdAndAccessTokenAppToken(user.getUserId(), registeredClient.getClientId(), null).orElse(new ArrayList<>());
 
         for (KnifeAuthorization knifeAuthorization : knifeAuthorizations) {
             knifeAuthorizationRepository.deleteById(knifeAuthorization.getId());

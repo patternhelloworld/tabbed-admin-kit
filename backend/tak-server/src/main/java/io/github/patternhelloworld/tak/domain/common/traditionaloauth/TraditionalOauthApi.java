@@ -2,19 +2,18 @@ package io.github.patternhelloworld.tak.domain.common.traditionaloauth;
 
 
 import io.github.patternhelloworld.common.config.response.GlobalSuccessPayload;
-
-import io.github.patternhelloworld.tak.config.securityimpl.message.CustomSecurityUserExceptionMessage;
 import io.github.patternhelloworld.tak.domain.common.user.service.UserService;
-
+import io.github.patternknife.securityhelper.oauth2.api.config.security.message.DefaultSecurityUserExceptionMessage;
 import io.github.patternknife.securityhelper.oauth2.api.config.security.message.ISecurityUserExceptionMessageService;
-
-import io.github.patternknife.securityhelper.oauth2.api.config.security.response.error.dto.KnifeErrorMessages;
-
+import io.github.patternknife.securityhelper.oauth2.api.config.security.response.error.exception.KnifeOauth2AuthenticationException;
 import io.github.patternknife.securityhelper.oauth2.api.domain.traditionaloauth.dto.SpringSecurityTraditionalOauthDTO;
 import io.github.patternknife.securityhelper.oauth2.api.domain.traditionaloauth.service.TraditionalOauthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+/*
+*   This is not recommended, but proceed with /oauth2/token, which is the default.
+* */
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
@@ -37,7 +36,7 @@ public class TraditionalOauthApi {
             case "refresh_token":
                 return new GlobalSuccessPayload<>(traditionalOauthService.refreshAccessToken(tokenRequest, authorizationHeader));
             default:
-                throw new io.github.patternknife.securityhelper.oauth2.api.config.security.response.error.exception.KnifeOauth2AuthenticationException(KnifeErrorMessages.builder().message("Wrong grant type from Req : " + tokenRequest.getGrant_type()).userMessage(iSecurityUserExceptionMessageService.getUserMessage(CustomSecurityUserExceptionMessage.AUTHENTICATION_WRONG_GRANT_TYPE)).build());
+                throw new KnifeOauth2AuthenticationException(iSecurityUserExceptionMessageService.getUserMessage(DefaultSecurityUserExceptionMessage.AUTHENTICATION_WRONG_GRANT_TYPE));
         }
     }
 
