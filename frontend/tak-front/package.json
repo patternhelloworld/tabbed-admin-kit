@@ -1,5 +1,5 @@
 {
-  "name": "autofocus-pms-dashboard",
+  "name": "pms-dashboard",
   "version": "0.1.0",
   "description": "Seed project for flexible light React/Bootstrap 4 dashboards.",
   "main": "index.js",
@@ -11,7 +11,7 @@
     "start:dev": "node ./build/cli-tools.js --clear dist --create dist && webpack-dev-server --config ./build/webpack.config.client.dev.js",
     "start:prod": "node ./build/cli-tools.js --clear dist --create dist && webpack-dev-server --config ./build/webpack.config.client.prod.js"
   },
-  "author": "Autofocus Team",
+  "author": "Andrew Kang",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.4.4",

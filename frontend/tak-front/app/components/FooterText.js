@@ -22,7 +22,7 @@ FooterText.propTypes = {
 };
 FooterText.defaultProps = {
     year: "2024",
-    name: "Autofocus",
+    name: "Andrew Kang",
     desc: "CRM & Logistics"
 };
 

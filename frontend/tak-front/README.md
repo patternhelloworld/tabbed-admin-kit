@@ -1,4 +1,4 @@
-# HQ Front
+# TAK Front
 
 ## Installation
 - Node Version : 18.20.4 사용
@@ -13,9 +13,6 @@ npm clean cache --force
 npm install --legacy-peer-deps # --legacy-peer-deps 는 권장되지 않으나 현재 "ag-grid-*" 라이브러리 들이 react 16.8 를 사용하기 때문에...
 npm run start
 ```
-
-### 다음을 따라서 소스 코드 수정
-- https://vholic.com:9094/autofocus/hq-pms/-/commit/34c8567adbf5692e89e3750a5a153024ec89bef7
 
 ## 소스
 

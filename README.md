@@ -8,7 +8,8 @@
 
 ## Used Modules
 
-| Library Name                                       | Library URL                                                                             | Purpose    | Additional Considerations                                                                                                     |
-|----------------------------------------------------|-----------------------------------------------------------------------------------------|------------|-------------------------------------------------------------------------------------------------------------------------------|
-| spring-security-oauth2-password-jpa-implementation | https://github.com/patternhelloworld/spring-security-oauth2-password-jpa-implementation | Security   | -                                                                                                                             |
-| docker-blue-green-runner                           | https://github.com/patternhelloworld/docker-blue-green-runner                           | Deployment | -                                                                            |
+| Library Name                                       | Library URL                                                                             | Purpose    | Additional Considerations                                                        |
+|----------------------------------------------------|-----------------------------------------------------------------------------------------|------------|----------------------------------------------------------------------------------|
+| spring-security-oauth2-password-jpa-implementation | https://github.com/patternhelloworld/spring-security-oauth2-password-jpa-implementation | Security   | -                                                                                |
+| docker-blue-green-runner                           | https://github.com/patternhelloworld/docker-blue-green-runner                           | Deployment | -                                                                                |
+| docker-mysql-8                          | https://github.com/patternhelloworld/docker-blue-green-runner                           | DB         | or you can set up MySql8 directly. The SQL file is located at ``tak-server/sql`` |
